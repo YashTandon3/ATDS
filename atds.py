@@ -3,6 +3,9 @@
 __author__ = "Yash Tandon"
 __version__ = "2026-02-12"
 
+from turtle import pos
+
+
 class Stack():
     def __init__(self):
         self.stack = []
@@ -11,7 +14,7 @@ class Stack():
         self.stack.append(item)
 
     def peek(self):
-        if len(self.stack) == 0:
+        if len(self.stack) > 0:
             return self.stack[-1]
 
     def pop(self):
@@ -114,14 +117,12 @@ class UnorderedList():
         """
         result = "UnorderedList["
         next_node = self.head
-        while next_node != None:
+        while next_node is not None:
             result += str(next_node.get_data()) + ","
             next_node = next_node.get_next()
-        if result[-1] == ",":
-            result = result[:-1] # remove trailing comma
-        result = result + "]"
+        result += "]"
         return result
-    
+        
     def length(self):
         node_count = 0
         current = self.head 
@@ -135,18 +136,104 @@ class UnorderedList():
     def remove(self, item):
         current = self.head
         previous = None
-        while current != None:
+
+        while current is not None:
             if current.get_data() == item:
-                if previous == None:
+                if previous is None:
                     self.head = current.get_next()
+                    current = self.head
                 else:
                     previous.set_next(current.get_next())
-                return
+                    current = current.get_next()
             else:
                 previous = current
                 current = current.get_next()
-        return #default
-        
+    
+    def search(self, item):
+        current = self.head
+        while current is not None:
+            if current.get_data() == item:
+                return True
+            current = current.get_next()
+        return False
+    
+    def append(self, item):
+        new_node = Node(item)
+
+        if self.head is None:
+            self.head = new_node
+            return
+
+        current = self.head
+        while current.get_next() != None:
+            current = current.get_next()
+
+        current.set_next(new_node)
+
+    def index(self, item):
+        current = self.head
+        position = 0
+
+        while current is not None:
+            if current.get_data() == item:
+                return position
+            current = current.get_next()
+            position += 1
+
+    def insert(self, pos, item):
+        new_node = Node(item)
+
+        if pos == 0:
+            new_node.set_next(self.head)
+            self.head = new_node
+            return
+
+        current = self.head
+        previous = None
+        position = 0
+
+        while position < pos:
+            previous = current
+            current = current.get_next()
+            position += 1
+
+        new_node.set_next(current)
+        previous.set_next(new_node)
+
+    def pop(self, pos=None):
+        if self.head is None:
+            return None
+
+        if pos is None:
+            current = self.head
+            previous = None
+
+            while current.get_next() is not None:
+                previous = current
+                current = current.get_next()
+
+            if previous is None:
+                self.head = None
+            else:
+                previous.set_next(None)
+
+            return current.get_data()
+
+        current = self.head
+        previous = None
+        position = 0
+
+        while position < pos:
+            previous = current
+            current = current.get_next()
+            position += 1
+
+        if previous is None:
+            self.head = current.get_next()
+        else:
+            previous.set_next(current.get_next())
+
+        return current.get_data()
 
 
 def main():
