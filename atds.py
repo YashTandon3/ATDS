@@ -117,7 +117,7 @@ class UnorderedList():
         """
         result = "UnorderedList["
         next_node = self.head
-        while next_node is not None:
+        while next_node != None:
             result += str(next_node.get_data()) + ","
             next_node = next_node.get_next()
         result += "]"
@@ -137,9 +137,9 @@ class UnorderedList():
         current = self.head
         previous = None
 
-        while current is not None:
+        while current != None:
             if current.get_data() == item:
-                if previous is None:
+                if previous == None:
                     self.head = current.get_next()
                     current = self.head
                 else:
@@ -151,7 +151,7 @@ class UnorderedList():
     
     def search(self, item):
         current = self.head
-        while current is not None:
+        while current != None:
             if current.get_data() == item:
                 return True
             current = current.get_next()
@@ -160,7 +160,7 @@ class UnorderedList():
     def append(self, item):
         new_node = Node(item)
 
-        if self.head is None:
+        if self.head == None:
             self.head = new_node
             return
 
@@ -174,7 +174,7 @@ class UnorderedList():
         current = self.head
         position = 0
 
-        while current is not None:
+        while current != None:
             if current.get_data() == item:
                 return position
             current = current.get_next()
@@ -201,18 +201,18 @@ class UnorderedList():
         previous.set_next(new_node)
 
     def pop(self, pos=None):
-        if self.head is None:
+        if self.head == None:
             return None
 
-        if pos is None:
+        if pos == None:
             current = self.head
             previous = None
 
-            while current.get_next() is not None:
+            while current.get_next() != None:
                 previous = current
                 current = current.get_next()
 
-            if previous is None:
+            if previous == None:
                 self.head = None
             else:
                 previous.set_next(None)
@@ -228,7 +228,7 @@ class UnorderedList():
             current = current.get_next()
             position += 1
 
-        if previous is None:
+        if previous == None:
             self.head = current.get_next()
         else:
             previous.set_next(current.get_next())
