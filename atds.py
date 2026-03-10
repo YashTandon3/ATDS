@@ -235,6 +235,25 @@ class UnorderedList():
 
         return current.get_data()
 
+class Unordered_List_Stack():
+    def __init__(self):
+        self.ul = UnorderedList()
+
+    def push(self, item):
+        self.ul.add(item)
+
+    def pop(self):
+        return self.ul.pop()
+
+    def peek(self):
+        if not self.ul.is_empty():
+            return self.ul.head.get_data()
+
+    def size(self):
+        return self.ul.length()
+
+    def is_empty(self):
+        return self.ul.is_empty()
 
 def main():
     print("Testing the UnorderedList class")
