@@ -1,14 +1,5 @@
 #!/usr/bin/env python3
 
-"""
-ANALYSIS:
-In this experiment, I compared the performance of a list-based Stack and a 
-Node-based UnorderedListStack. I found that [insert your observation: e.g., 
-the list-based stack was faster/slower]. This is likely because Python's 
-built-in lists are optimized in C, whereas the UnorderedListStack incurs the 
-'expense' of creating new Node objects for every push. For pop 
-operations, the results showed [insert your result]. 
-"""
 
 from atds import *
 import time
