@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 
+__author__ = "Yash Tandon"
+__version__ = "2026-03-10"
+
 from atds import *
 import time
 import matplotlib.pyplot as plt
