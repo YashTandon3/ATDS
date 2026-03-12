@@ -4,6 +4,8 @@ selection_sort.py
 Creates a list of random values and sorts them using the 
 Selection Sort algorithm.
 """
+__name__ = "Yash Tandon"
+__version__ = "2026-03-12"
 
 import time
 import random
@@ -15,6 +17,10 @@ def generate_random_numbers(length, range_of_values):
     the caller.
     """
     # write code here
+    nums = []
+    for i in range(length):
+        nums.append(random.randrange(range_of_values))
+    return nums
 
 
 def sort(nums):
@@ -22,6 +28,16 @@ def sort(nums):
     Selection Sort algorithm.
     """
     # write code here
+    n = len(nums)
+
+    for i in range(n):
+        min_index = i
+
+        for j in range(i + 1, n):
+            if nums[j] < nums[min_index]:
+                min_index = j
+
+        nums[i], nums[min_index] = nums[min_index], nums[i]
 
 
     
@@ -31,6 +47,9 @@ def display(a_list):
     and final state of the list.
     """
     # write code here
+    for item in a_list:
+        print(item, end=" ")
+    print()
 
 
 
