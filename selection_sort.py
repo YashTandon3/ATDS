@@ -4,7 +4,7 @@ selection_sort.py
 Creates a list of random values and sorts them using the 
 Selection Sort algorithm.
 """
-__name__ = "Yash Tandon"
+__author__ = "Yash Tandon"
 __version__ = "2026-03-12"
 
 import time
