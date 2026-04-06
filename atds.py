@@ -255,6 +255,36 @@ class Unordered_List_Stack():
     def is_empty(self):
         return self.ul.is_empty()
 
+class HashTable:
+    def __init__(self, size):
+        self.size = size
+        self.slots = [None] * size
+        self.data = [None] * size
+
+    def __repr__(self):
+        return str(self.slots) + "\n" + str(self.data)
+
+    def hash_function(self, key):
+        return key % self.size
+
+    def put(self, key, value):
+        i = self.hash_function(key)
+        while self.slots[i] is not None and self.slots[i] != key:
+            i = (i + 1) % self.size
+        self.slots[i] = key
+        self.data[i] = value
+
+    def get(self, key):
+        i = self.hash_function(key)
+        start = i
+        while self.slots[i] is not None:
+            if self.slots[i] == key:
+                return self.data[i]
+            i = (i + 1) % self.size
+            if i == start:
+                break
+        return None
+
 def main():
     print("Testing the UnorderedList class")
     tests_passed = 0
