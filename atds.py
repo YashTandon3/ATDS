@@ -287,6 +287,34 @@ class BinarySearcher:
                 high = mid - 1
         return None
 
+class binary_tree_class:
+    def __init__(self, key):
+        self.value = key
+        self.left = None
+        self.right = None
+    def get_root_val(self):
+        return self.value
+    def set_root_val(self, new_val):
+        self.value = new_val
+    def get_left_child(self):
+        return self.left
+    def get_right_child(self):
+        return self.right
+    def insert_left(self, new_left_child):
+        if self.left is None:
+            self.left = new_left_child
+        else:
+            new_node = binary_tree_class(new_left_child)
+            new_node.left = self.left
+            self.left = new_node
+    def insert_right(self, new_right_child):
+        if self.right is None:
+            self.right = new_right_child
+        else:
+            new_node = binary_tree_class(new_right_child)
+            new_node.right = self.right
+            self.right = new_node
+
 def main():
     print("Testing the UnorderedList class")
     tests_passed = 0
