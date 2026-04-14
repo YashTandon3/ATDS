@@ -1,291 +1,35 @@
 #!/usr/bin/env python3
+"""
+unorderedlist_tester.py
+This UnorderedList Tester creates an UnorderedList object based
+on your class description, and tests to see if it can handle
+the common methods.
 
-__author__ = "Yash Tandon"
-__version__ = "2026-02-12"
-
-from turtle import pos
-
-
-class Stack():
-    def __init__(self):
-        self.stack = []
-
-    def push(self, item):
-        self.stack.append(item)
-
-    def peek(self):
-        if len(self.stack) > 0:
-            return self.stack[-1]
-
-    def pop(self):
-        if len(self.stack) > 0:
-            return self.stack.pop()
-
-    def size(self):
-        return len(self.stack)
-
-    def is_empty(self):
-        return len(self.stack) == 0
-
-
-class Queue():
-    def __init__(self):
-        self.queue = []
-
-    def enqueue(self, item):
-        self.queue.append(item)
-
-    def dequeue(self):
-        if len(self.queue) > 0:
-            return self.queue.pop(0)
-
-    def peek(self):
-        if len(self.queue) > 0:
-            return self.queue[0]
-
-    def is_empty(self):
-        return len(self.queue) == 0
-
-    def size(self):
-        return len(self.queue)
+Your UnorderedList class, and the Node class that it uses, should
+be defined in your atds module. In order to assist you in 
+debugging any errors, make sure you use the following __repr__
+method in your UnorderedList. This will allow you to see what's
+happening in your list, and will allow the Tester to provide
+better diagnostics for your debugging pleasure. :)
 
     def __repr__(self):
-        return str(self.queue)
-
-
-class Deque:
-    def __init__(self):
-        self.deque = []
-
-    def add_front(self, item):
-        self.deque.insert(0, item)
-    
-    def add_rear(self, item):
-        self.deque.append(item)
-    
-    def remove_front(self):
-        if len(self.deque) > 0:
-            return self.deque.pop(0)
-    
-    def remove_rear(self):
-        if len(self.deque) > 0:
-            return self.deque.pop()
-    
-    def peek_front(self):
-        if len(self.deque) > 0:
-            return self.deque[0]
-
-    def peek_rear(self):
-        if len(self.deque) >0:
-            return self.deque[-1]
-
-    def size(self):
-        return len(self.deque)
-    
-    def is_empty(self):
-        return len(self.deque) == 0
-
-
-class Node():
-    def __init__(self, data):
-        self.data = data
-        self.next = None
-    def get_data(self):
-        return self.data
-    def set_data(self, new_data):
-        self.data = new_data
-    def get_next(self):
-        return self.next
-    def set_next(self, new_next):
-        self.next = new_next
-    def __repr__(self):
-        return f"Node[data={self.data}]" + f"next={self.next}"
-
-
-class UnorderedList():
-    def __init__(self):
-        self.head = None
-
-    def add(self, item):
-        new_node = Node(item)
-        new_node.set_next(self.head)
-        self.head = new_node
-
-    def __repr__(self):
-        result = "UnorderedList["
+        '''Creates a representation of the list suitable for 
+        printing, debugging.
+        ''' 
+        return_value = "UnorderedList["
         next_node = self.head
         while next_node != None:
-            result += str(next_node.get_data()) + ","
+            return_value += str(next_node.get_data()) + ","
             next_node = next_node.get_next()
-        result += "]"
-        return result
+        return_value = return_value + "]"
+        return return_value
+        
+@author Richard White
+@version 2023-02-23 (modified)
+"""
 
-    def length(self):
-        node_count = 0
-        current = self.head
-        while current != None:
-            node_count += 1
-            current = current.get_next()
-        return node_count
-
-    def is_empty(self):
-        return self.head == None
-
-    def remove(self, item):
-        current = self.head
-        previous = None
-        while current != None:
-            if current.get_data() == item:
-                if previous == None:
-                    self.head = current.get_next()
-                    current = self.head
-                else:
-                    previous.set_next(current.get_next())
-                    current = current.get_next()
-            else:
-                previous = current
-                current = current.get_next()
-
-    def search(self, item):
-        current = self.head
-        while current != None:
-            if current.get_data() == item:
-                return True
-            current = current.get_next()
-        return False
-
-    def append(self, item):
-        new_node = Node(item)
-        if self.head == None:
-            self.head = new_node
-            return
-        current = self.head
-        while current.get_next() != None:
-            current = current.get_next()
-        current.set_next(new_node)
-
-    def index(self, item):
-        current = self.head
-        position = 0
-        while current != None:
-            if current.get_data() == item:
-                return position
-            current = current.get_next()
-            position += 1
-        return None
-
-    def insert(self, pos, item):
-        new_node = Node(item)
-        if pos == 0:
-            new_node.set_next(self.head)
-            self.head = new_node
-            return
-        current = self.head
-        previous = None
-        position = 0
-        while current != None and position < pos:
-            previous = current
-            current = current.get_next()
-            position += 1
-        new_node.set_next(current)
-        previous.set_next(new_node)
-
-    def pop(self, pos=None):
-        if self.head == None:
-            return None
-        if pos == None:
-            current = self.head
-            previous = None
-            while current.get_next() != None:
-                previous = current
-                current = current.get_next()
-            if previous == None:
-                self.head = None
-            else:
-                previous.set_next(None)
-            return current.get_data()
-        current = self.head
-        previous = None
-        position = 0
-        while current != None and position < pos:
-            previous = current
-            current = current.get_next()
-            position += 1
-        if previous == None:
-            self.head = current.get_next()
-        else:
-            previous.set_next(current.get_next())
-        return current.get_data()
-
-class Unordered_List_Stack():
-    def __init__(self):
-        self.ul = UnorderedList()
-
-    def push(self, item):
-        self.ul.add(item)
-
-    def pop(self):
-        return self.ul.pop()
-
-    def peek(self):
-        if not self.ul.is_empty():
-            return self.ul.head.get_data()
-
-    def size(self):
-        return self.ul.length()
-
-    def is_empty(self):
-        return self.ul.is_empty()
-
-class HashTable:
-    def __init__(self, size):
-        self.size = size
-        self.slots = [None] * size
-        self.data = [None] * size
-
-    def __repr__(self):
-        return str(self.slots) + "\n" + str(self.data)
-
-    def hash_function(self, key):
-        return key % self.size
-
-    def put(self, key, value):
-        i = self.hash_function(key)
-        while self.slots[i] is not None and self.slots[i] != key:
-            i = (i + 1) % self.size
-        self.slots[i] = key
-        self.data[i] = value
-
-    def get(self, key):
-        i = self.hash_function(key)
-        start = i
-        while self.slots[i] is not None:
-            if self.slots[i] == key:
-                return self.data[i]
-            i = (i + 1) % self.size
-            if i == start:
-                break
-        return None
-
-class LinearSearcher:
-    def search(self, numbers, target):
-        for i, num in enumerate(numbers):
-            if num == target:
-                return i
-        return None
-    
-class BinarySearcher:
-    def search(self, numbers, target):
-        low, high = 0, len(numbers) - 1
-        while low <= high:
-            mid = (low + high) // 2
-            if numbers[mid] == target:
-                return mid
-            elif numbers[mid] < target:
-                low = mid + 1
-            else:
-                high = mid - 1
-        return None
+from atds import *          # Uses the UnorderedList and Node classes
+# from unorderedlist_class import *
 
 def main():
     print("Testing the UnorderedList class")
@@ -542,7 +286,7 @@ def main():
 
         
     print(str(tests_passed) + "/21 tests passed on the UnorderedList class")
-    
+
 
 if __name__ == "__main__":
     main()
