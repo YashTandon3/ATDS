@@ -285,6 +285,26 @@ class HashTable:
                 break
         return None
 
+class LinearSearcher:
+    def search(self, numbers, target):
+        for i, num in enumerate(numbers):
+            if num == target:
+                return i
+        return None
+    
+class BinarySearcher:
+    def search(self, numbers, target):
+        low, high = 0, len(numbers) - 1
+        while low <= high:
+            mid = (low + high) // 2
+            if numbers[mid] == target:
+                return mid
+            elif numbers[mid] < target:
+                low = mid + 1
+            else:
+                high = mid - 1
+        return None
+
 def main():
     print("Testing the UnorderedList class")
     tests_passed = 0
