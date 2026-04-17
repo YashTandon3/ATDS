@@ -15,7 +15,7 @@ def build_parse_tree(tokens: list) -> BinaryTree:
             current.insert_left(None)
             st.push(current)
             current = current.get_left_child()
-        elif token in ('+', '-', '*', '/'):  # FIX: use tuple, not string
+        elif token in ('+', '-', '*', '/'):  
             current.set_root_val(token)
             current.insert_right(None)
             st.push(current)
