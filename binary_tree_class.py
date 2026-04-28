@@ -38,3 +38,13 @@ class BinaryTree:
             f"left_child={self.left},"
             f"right_child={self.right}]"
         )
+    def print_tree(self, level=0, prefix="Root"):
+        print(" " * (level * 4) + prefix + ": " + str(self.root.key) + ", " + str(self.root.value))
+        if self.left_child:
+            self.left_child.print_tree(level + 1, "L")
+        else:
+            print(" " * ((level + 1) * 4) + "L: None")
+        if self.right_child:
+            self.right_child.print_tree(level + 1, "R")
+        else:
+            print(" " * ((level + 1) * 4) + "R: None")
