@@ -3,7 +3,7 @@
 __author__ = "Yash Tandon"
 __version__ = "2026-04-23"
 
-from max_heap.person import Person 
+from person import Person 
 
 class BinaryHeap():
     def __init__(self):
