@@ -7,7 +7,7 @@ This program tests your BinaryHeap class.
 @version 2018-04-25
 """
 
-from binary_heap import *       # import the BinaryTree class
+from max_heap.binary_heap import *       # import the BinaryTree class
 
 def main():
     print("Testing minHeap binary tree")
