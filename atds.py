@@ -409,8 +409,119 @@ class BinaryHeap():
 
 
 
+class Vertex(object):
+    def __init__(self, key):
+        self.id = key
+        self.connected_to = {}
+
+    def add_neighbor(self, num, weight=0):
+        self.connected_to[num] = weight
+
+    def get_connections(self):
+        return self.connected_to.keys()
+
+    def get_id(self):
+        return self.id
+
+    def get_weight(self, nbr):
+        return self.connected_to[nbr]
+
+    def __str__(self):
+        return f"{self.id} connected to: {[x.id for x in self.connected_to]}"
+
+
+
+
+
+class Graph(object):
+    """Describes the Graph class, which is primarily a dictionary  
+    mapping vertex names to Vertex objects, along with a few methods 
+    that can be used to manipulate them.
+    """
+    def __init__(self):
+        """Initializes an empty dictionary of Vertex objects
+        """
+        self.vertex_dict = {}
+
+    def add_vertex(self, key):
+        """Creates a new "key-value" dictionary entry with the string "key"
+        key as the dictionary key, and the Vertex object itself as the value. 
+        Returns the new vertex as a result.
+        """
+        new_vertex = Vertex(key)
+        self.vertex_dict[key] = new_vertex
+        return new_vertex
+    def get_vertex(self, key):
+        """Looks for the key in the dictionary of Vertex objects, and 
+        returns the Vertex if found. Otherwise, returns None.
+        """
+        return self.vertex_dict.get(key, None)
+
+    def __contains__(self, key):
+        """This 'dunder' expression is written so we can use Python's "in" 
+        operation: If the parameter 'key' is in the dictionary of vertices,
+        the value of "key in my_graph" will be True, otherwise False.
+        """
+        return key in self.vertex_dict
+
+    def add_edge(self, from_vertex, to_vertex, weight=0):
+        """Adds an edge connecting two vertices (specified by key parameters)
+        by modifying those vertex objects. Note that the weight can be 
+        specified as well, but if one isn't specified, the value of weight 
+        will be the default value of 0.
+        """
+        if from_vertex not in self.vertex_dict:
+            self.add_vertex(from_vertex)
+        if to_vertex not in self.vertex_dict:
+            self.add_vertex(to_vertex)
+        self.vertex_dict[from_vertex].add_neighbor(self.vertex_dict[to_vertex], weight)
+    def get_vertices(self):
+        """Returns a list of the Vertex keys"""
+        return self.vertex_dict.keys()
+
+    def __iter__(self):
+        """Another 'dunder' expression that allows us to iterate through
+        the list of vertices.
+        Example use:
+        for vert in graph:  # Python understands this now!
+            print(v)
+        """
+        return iter(self.vertex_dict.values())
 
 def main():
+    v1 = Vertex(1)
+    v2 = Vertex(2)
+    v3 = Vertex(3)
+    v1.add_neighbor(v2)
+    v1.add_neighbor(v3, 7)
+    print("Vertex v1 is ", v1)
+    print("Vertex v1 is connected to ", v1.get_connections())
+    print("The weight between v1 and v3 is ", v1.get_weight(v3))
+    print("Vertex v2 is connected to ", v2.get_connections())
+
+
+    g = Graph()
+    for i in range(6):
+        g.add_vertex(i)  # Create vertexes and add to the graph
+    # Add a series of edges between the vertices
+    g.add_edge(0,1,5)
+    g.add_edge(0,5,2)
+    g.add_edge(1,2,4)
+    g.add_edge(2,3,9)
+    g.add_edge(3,4,7)
+    g.add_edge(3,5,3)
+    g.add_edge(4,0,1)
+    g.add_edge(5,4,8)
+    g.add_edge(5,2,1)
+    # Display all the vertices (possible because `iter` is defined)
+    for vertex in g:
+        print(vertex)
+    for vertex1 in g:
+        for vertex2 in vertex1.get_connections():
+            print("( %s , %s )" % (vertex1.get_id(), vertex2.get_id()))
+
+    
+    """
     print("Testing the UnorderedList class")
     tests_passed = 0
     try:
@@ -666,6 +777,6 @@ def main():
         
     print(str(tests_passed) + "/21 tests passed on the UnorderedList class")
     
-
+"""
 if __name__ == "__main__":
     main()
