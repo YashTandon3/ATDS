@@ -87,5 +87,6 @@ def main():
     for v in g:
         print(v)
     print(v.get_distance(), v.get_previous()) 
+    traverse(g, g.get_vertex('CAP'), g.get_vertex('PAN'))
 
 main()
