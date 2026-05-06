@@ -20,6 +20,27 @@ def build_graph(word_file):
     return g
 
 
+
+def traverse(g, start, finish):
+    """Works backwards from the finish vertex, following `previous` vectors
+    all the way to the start.
+    """
+    if finish != None:
+        current = finish
+        while current.get_previous() != None:
+            print(current.get_key(), current.get_distance())
+            current = current.get_previous()
+        if current == start:
+            print(current.get_key()) # The last ie. first item in the path
+        else:
+            print("Couldn't find a path!")
+    else:
+        print("Finishing vertex doesn't exist!")
+
+
+
+
+
 def bfs(g, start):
     """Goes through the vertices to create a set of predecessor links
     between the vertices (in addition to the edges that are already 
@@ -53,24 +74,6 @@ def bfs(g, start):
         print("Setting it to black")
         current.set_color('black') 
         input("[Enter] to continue")
-
-
-def traverse(g, start, finish):
-    """Works backwards from the finish vertex, following `previous` vectors
-    all the way to the start.
-    """
-    if finish != None:
-        current = finish
-        while current.get_previous() != None:
-            print(current.get_key(), current.get_distance())
-            current = current.get_previous()
-        if current == start:
-            print(current.get_key()) # The last ie. first item in the path
-        else:
-            print("Couldn't find a path!")
-    else:
-        print("Finishing vertex doesn't exist!")
-
 
 
 
