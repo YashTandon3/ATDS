@@ -1,4 +1,4 @@
-from atds import Vertex, Graph, Queue
+from atds2 import Vertex, Graph, Queue
 
 def one_letter_off(word1, word2):
     count = 0
@@ -22,16 +22,13 @@ def build_graph(word_file):
 
 
 def traverse(g, start, finish):
-    """Works backwards from the finish vertex, following `previous` vectors
-    all the way to the start.
-    """
     if finish != None:
         current = finish
         while current.get_previous() != None:
             print(current.get_key(), current.get_distance())
             current = current.get_previous()
         if current == start:
-            print(current.get_key()) # The last ie. first item in the path
+            print(current.get_key()) 
         else:
             print("Couldn't find a path!")
     else:
@@ -42,10 +39,6 @@ def traverse(g, start, finish):
 
 
 def bfs(g, start):
-    """Goes through the vertices to create a set of predecessor links
-    between the vertices (in addition to the edges that are already 
-    there
-    """
     start.set_distance(0)
     start.set_previous(None)
     current = start
@@ -56,7 +49,6 @@ def bfs(g, start):
         current = q.dequeue()
         print("Just pulled",current.__repr__(),"off the queue!")
         for neighbor in current.get_neighbors():
-            # if we haven't seen this neighbor yet
             if neighbor.get_color() == 'white':
                 print("Processing",neighbor.get_key(),"by setting color to gray")
                 neighbor.set_color('gray')
