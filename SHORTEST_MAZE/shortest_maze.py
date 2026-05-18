@@ -1,5 +1,8 @@
 from atds2 import Vertex, Graph, Queue
 
+import os
+import time
+
 def one_letter_off(word1, word2):
     count = 0
     for i in range(len(word1)):
@@ -19,6 +22,32 @@ def build_graph(word_file):
                 g.add_edge(word1, word2)
     return g
 
+def display_maze(maze, g, path=None):
+    """prints out the maze on the screen, either as the breadth first search
+    is happening or as a final version if a solution path has been provided.
+    """
+    os.system("clear")
+    for row in range(len(maze)):
+        for col in range(len(maze[0])):
+            if maze[row][col] in "XY0":
+                print(maze[row][col], end='')
+            else:
+                if path == None:
+                    if g.get_vertex((row, col)).get_color() == "white":
+                        print(" ", end='')
+                    elif g.get_vertex((row,col)).get_color() == "gray":
+                        print(".", end='')
+                    elif g.get_vertex((row,col)).get_color() == "black":
+                        print("*", end='')
+                    else:
+                        print("Error in printing maze.")
+                else:
+                    if g.get_vertex((row, col)).get_color() == "gold":
+                        print(".", end='')
+                    else:
+                        print(" ", end='')
+        print()
+    time.sleep(0.05)
 
 
 def traverse(g, start, finish):

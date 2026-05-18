@@ -330,9 +330,7 @@ class BinaryHeap():
     can be calculated from the index c of a child as c // 2.
     """
     def __init__(self):
-        self.heap_list = [0]  # not used. Here just to make parent-
-                             # child calculations work nicely.
-        # Note that current size of heap = len(self.heapList) - 1
+        self.heap_list = [0]  
 
     def insert(self,value):
         """Inserts a value into the heap by:
